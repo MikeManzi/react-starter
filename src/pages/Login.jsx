@@ -3,18 +3,18 @@ import { Link, Navigate } from 'react-router-dom'
 import AuthContext from '../contexts/AuthContext';
 
 function Login() {
-  const { login, error, isLoading, user } = useContext(AuthContext);
+  const { login, error, isLoading, user, userCredentials } = useContext(AuthContext);
   if (error) {
     console.log(error)
   }
   const [values, setValues] = useState({
-    email: '',
-    password: '',
+    email: userCredentials.email,
+    password: userCredentials.password,
   })
 
   const [touched, setTouched] = useState({
-    email: false,
-    password: false,
+    email: userCredentials.email ? true : false,
+    password: userCredentials.password ? true : false,
   })
 
   const handleChange = (event) => {

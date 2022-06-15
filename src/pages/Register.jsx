@@ -1,14 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import AuthContext from '../contexts/AuthContext';
 
 function Register() {
 
-    const { register, error, isLoading, user } = useContext(AuthContext);
+    const { register, error, isLoading, userCredentials, resetUserCredentials } = useContext(AuthContext);
     if (error) {
         console.log(error)
     }
 
+    useEffect(() => {
+        resetUserCredentials();
+    }, [])
 
     const [values, setValues] = useState({
         firstName: '',
@@ -43,7 +46,7 @@ function Register() {
         await register(values.firstName, values.lastName, values.email, values.password)
     }
 
-    if (user) {
+    if (userCredentials.email) {
         return <Navigate replace to="/" />
     }
 
